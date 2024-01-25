@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\ProfissionalController;
 use App\Http\Controllers\ServicoController;
 use Illuminate\Http\Request;
@@ -95,3 +96,7 @@ Route::post('schedule/date', [AgendaController::class, 'agendaFindData']);
 Route::get('schedule/find/{id}', [AgendaController::class, 'agendaId']);
 
 Route::post('schedule/find/time/professional', [AgendaController::class, 'agendaFindTimeProfissional']);
+
+//Pagamento
+
+Route::post('payment', [PagamentoController::class, 'pagamento']);
