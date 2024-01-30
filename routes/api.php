@@ -115,6 +115,16 @@ Route::post('payment/name', [PagamentoController::class, 'pagamentoNome']);
 
 Route::delete('payment/delete/{id}', [PagamentoController::class, 'pagamentoExcluir']);
 
+//------------------------------------------- PROFISSIONAL -------------------------------------------//
+
+//Cliente--Profissional
+
+Route::post('professional/client', [ClienteController::class, 'cliente']);
+
+//Agenda--Profissional
+
+Route::post('professional/schedule/time', [AgendaController::class, 'agendaTimeProfissional']);
+
 
 //------------------------------------------- ADMNISTRADOR -------------------------------------------//
 
@@ -127,6 +137,8 @@ Route::put('adm/update', [AdministradorController::class, 'administradorUpdate']
 Route::delete('adm/delete/{id}', [AdministradorController::class, 'administradorExcluir']);
 
 Route::get('adm/all', [AdministradorController::class, 'administradorRetornar']);
+
+Route::post('adm/restore', [AdministradorController::class, 'administradorRestaurar']);
 
 //Serviço--ADMNISTRADOR
 

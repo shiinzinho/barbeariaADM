@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateAdministradorFormRequest;
 use App\Models\Administrador;
 use App\Models\Profissional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdministradorController extends Controller
 {
@@ -62,6 +63,26 @@ class AdministradorController extends Controller
             'status' => true,
             'data' => $administrador
         ]);
+    }
+    public function administradorRestaurar(Request $request){
+        $administrador = Administrador::where('email', 'like', $request->email)->first();
+        if ($administrador) {
+            $novaSenha = $administrador->cpf;
+            $administrador->update([
+                'senha' => Hash::make($novaSenha),
+                'updated_at' => now()
+            ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Senha redefinida',
+                'nova_senha' => Hash::make($novaSenha)
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Profissional não encontrado'
+            ]);
+        }
     }
     public function administradorUpdate(UpdateAdministradorFormRequest $request)
     {

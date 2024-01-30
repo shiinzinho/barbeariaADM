@@ -129,7 +129,6 @@ class AgendaController extends Controller
             'data' => $agenda
         ]);
     }
-
     public function agendaId($id)
     {
         $agenda = Agenda::find($id);
