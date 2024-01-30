@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 120)->nullable(false);
             $table->integer('taxa')->nullable(true);
-            $table->string('condicao', 15)->nullable(false);
+            $table->string('status', 15)->nullable(false);
             $table->timestamps();
         });
     }

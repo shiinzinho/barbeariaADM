@@ -8,6 +8,8 @@ use App\Http\Controllers\ServicoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+
 //Serviço
 
 Route::post('service', [ServicoController::class, 'servico']);
@@ -97,6 +99,123 @@ Route::get('schedule/find/{id}', [AgendaController::class, 'agendaId']);
 
 Route::post('schedule/find/time/professional', [AgendaController::class, 'agendaFindTimeProfissional']);
 
+
+
 //Pagamento
 
 Route::post('payment', [PagamentoController::class, 'pagamento']);
+
+Route::put('payment/update', [PagamentoController::class, 'pagamentoUpdate']);
+
+Route::get('payment/all', [PagamentoController::class, 'pagamentoRetornar']);
+
+Route::post('payment/name', [PagamentoController::class, 'pagamentoNome']);
+
+Route::delete('payment/delete/{id}', [PagamentoController::class, 'pagamentoExcluir']);
+
+
+//------------------------------------------- ADMNISTRADOR -------------------------------------------//
+
+//Serviço--ADMNISTRADOR
+
+Route::post('adm/service', [ServicoController::class, 'servico']);
+
+Route::get('adm/service/find/{id}', [ServicoController::class, 'servicoId']);
+
+Route::post('adm/service/name', [ServicoController::class, 'servicoNome']);
+
+Route::post('adm/service/description', [ServicoController::class, 'servicoDescricao']);
+
+Route::get('adm/service/all', [ServicoController::class, 'servicoRetornar']);
+
+Route::delete('adm/service/delete/{id}', [ServicoController::class, 'servicoExcluir']);
+
+Route::put('adm/service/update', [ServicoController::class, 'servicoUpdate']);
+
+
+
+
+//Cliente--ADMNISTRADOR
+
+Route::post('adm/client', [ClienteController::class, 'cliente']);
+
+Route::get('adm/client/find/{id}', [ClienteController::class, 'clienteId']);
+
+Route::post('adm/client/name', [ClienteController::class, 'clienteNome']);
+
+Route::post('adm/client/cpf', [ClienteController::class, 'clienteCpf']);
+
+Route::post('adm/client/cellphone', [ClienteController::class, 'clienteCelular']);
+
+Route::post('adm/client/email', [ClienteController::class, 'clienteEmail']);
+
+Route::get('adm/client/all', [ClienteController::class, 'clienteRetornar']);
+
+Route::delete('adm/client/delete/{id}', [ClienteController::class, 'clienteExcluir']);
+
+Route::put('adm/client/update', [ClienteController::class, 'clienteUpdate']);
+
+Route::post('adm/client/restore', [ClienteController::class, 'clienteRestaurar']);
+
+
+
+
+//Profissional--ADMNISTRADOR
+
+Route::post('adm/professional', [ProfissionalController::class, 'profissional']);
+
+Route::get('adm/professional/find/{id}', [ProfissionalController::class, 'profissionalId']);
+
+Route::post('adm/professional/name', [ProfissionalController::class, 'profissionalNome']);
+
+Route::post('adm/professional/cpf', [ProfissionalController::class, 'profissionalCpf']);
+
+Route::post('adm/professional/cellphone', [ProfissionalController::class, 'profissionalCelular']);
+
+Route::post('adm/professional/email', [ProfissionalController::class, 'profissionalEmail']);
+
+Route::get('adm/professional/all', [ProfissionalController::class, 'profissionalRetornar']);
+
+Route::delete('adm/professional/delete/{id}', [ProfissionalController::class, 'profissionalExcluir']);
+
+Route::put('adm/professional/update', [ProfissionalController::class, 'profissionalUpdate']);
+
+Route::post('adm/professional/restore', [ProfissionalController::class, 'profissionalRestaurar']);
+
+
+
+
+//Agenda--ADMNISTRADOR
+
+Route::post('adm/schedule', [AgendaController::class, 'agenda']);
+
+Route::get('adm/schedule/all', [AgendaController::class, 'agendaRetornar']);
+
+Route::delete('adm/schedule/delete/{id}', [AgendaController::class, 'agendaExcluir']);
+
+Route::put('adm/schedule/update', [AgendaController::class, 'agendaUpdate']);
+
+Route::post('adm/schedule/time', [AgendaController::class, 'agendaTimeProfissional']);
+
+Route::post('adm/schedule/find', [AgendaController::class, 'agendaFind']);
+
+Route::post('adm/schedule/date', [AgendaController::class, 'agendaFindData']);
+
+Route::get('adm/schedule/find/{id}', [AgendaController::class, 'agendaId']);
+
+Route::post('adm/schedule/find/time/professional', [AgendaController::class, 'agendaFindTimeProfissional']);
+
+
+
+
+//Pagamento--ADMNISTRADOR
+
+Route::post('adm/payment', [PagamentoController::class, 'pagamento']);
+
+Route::put('adm/payment/update', [PagamentoController::class, 'pagamentoUpdate']);
+
+Route::get('adm/payment/all', [PagamentoController::class, 'pagamentoRetornar']);
+
+Route::post('adm/payment/name', [PagamentoController::class, 'pagamentoNome']);
+
+Route::delete('adm/payment/delete/{id}', [PagamentoController::class, 'pagamentoExcluir']);
