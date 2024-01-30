@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\ProfissionalController;
 use App\Http\Controllers\ServicoController;
+use App\Models\Administrador;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -115,6 +117,16 @@ Route::delete('payment/delete/{id}', [PagamentoController::class, 'pagamentoExcl
 
 
 //------------------------------------------- ADMNISTRADOR -------------------------------------------//
+
+Route::post('adm', [AdministradorController::class, 'administrador']);
+
+Route::post('adm/cpf', [AdministradorController::class, 'administradorCpf']);
+
+Route::put('adm/update', [AdministradorController::class, 'administradorUpdate']);
+
+Route::delete('adm/delete/{id}', [AdministradorController::class, 'administradorExcluir']);
+
+Route::get('adm/all', [AdministradorController::class, 'administradorRetornar']);
 
 //Serviço--ADMNISTRADOR
 
