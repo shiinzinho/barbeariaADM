@@ -27,7 +27,7 @@ class AdministradorFormRequest extends FormRequest
             'nome'=>'required|max:120|min:5',
             'cpf'=>'required|max:11|min:11|unique:administradors,cpf',
             'email'=>'required|max:120|email:rfc|unique:administradors,email',
-            'senha'=>'required',
+            'password'=>'required',
         ];
     }
     public function failedValidation(Validator $validator){
@@ -49,7 +49,7 @@ class AdministradorFormRequest extends FormRequest
             'email.max' => 'E-mail deve conter no máximo 120 caracteres',
             'email.email' => 'Formato de e-mail inválido',
             'email.unique' => 'E-mail já cadastrado no sistema',
-            'senha.required' => 'Senha obrigatório',
+            'password.required' => 'Senha obrigatório',
         ];
     }
 }

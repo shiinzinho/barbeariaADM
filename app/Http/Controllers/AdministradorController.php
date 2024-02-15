@@ -11,72 +11,66 @@ use Illuminate\Support\Facades\Hash;
 
 class AdministradorController extends Controller
 {
-    public function administrador(Request $request){
-        try{
-         $data = $request-> all();
-         
-         $data['password'] = Hash::make($request->password);
+    public function administrador(AdministradorFormRequest $request)
+    {
+        try {
+            $data = $request->all();
 
-         $response = Administrador::create($data)->createToken($request->server('HTTP_USER_AGENT'))->plainTextToken;
+            // Verifica se o usuário já existe
+            $administrador = Administrador::where('email', $request->email)->first();
+            if ($administrador) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Admin já cadastrado"
+                ], 400);
+            }
 
-         return response()->json([
-            'status' => 'sucess',
-            'message' => "Admin cadastrado com sucesso",
-            'token' => $response
-         ],200);
-        
-        } catch(\Throwable $th){
+            $data['password'] = Hash::make($request->password);
+
+            $response = Administrador::create($data)->createToken($request->server('HTTP_USER_AGENT'))->plainTextToken;
+
+            return response()->json([
+                'status' => 'sucess',
+                'message' => "Admin cadastrado com sucesso",
+                'token' => $response
+            ], 200);
+        } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
-            ],500);
+            ], 500);
         }
     }
-    public function administradorLogin(Request $request){
-        {
-            try {
-                if (Auth::guard('administradors')->attempt([
-                    'email' => $request->email,
-                    'password' => $request->password,
-                ])) {
-                    /** @var UserContract $user */
-                    $user = Auth::guard('administradors')->user();
-                    $token = $user->createToken($request->server('HTTP_USER_AGENT'), ['administradors'])->plainTextToken;
-                    return response()->json([
-                        'status' => true,
-                        'message' => "Login efetuado com sucesso",
-                        'token' => $token
-                    ], 200);
-                } else {
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Credenciais incorretas'
-                    ], 200);
-                }
-            } catch (\Throwable $th) {
+    public function administradorLogin(Request $request){ 
+        try {
+            if (Auth::guard('administradors')->attempt([
+                'email' => $request->email,
+                'password' => $request->password,
+            ])) {
+                /** @var UserContract $user */
+                $user = Auth::guard('administradors')->user();
+                $token = $user->createToken($request->server('HTTP_USER_AGENT'), ['administradors'])->plainTextToken;
+                return response()->json([
+                    'status' => true,
+                    'message' => "Login efetuado com sucesso",
+                    'token' => $token
+                ], 200);
+            } else {
                 return response()->json([
                     'status' => false,
-                    'message' => $th->getMessage()
-                ], 500);
+                    'message' => 'Credenciais incorretas'
+                ], 200);
             }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
-    public function verificarAdminstradorLogado(){
+    public function verificarAdministradorLogado()
+    {
         return Auth::user();
-     }
-    public function admin(AdministradorFormRequest $request){
-        $administrador = Administrador::create([
-            'nome' => $request->nome,
-            'cpf' => $request->cpf,
-            'email' => $request->email,
-            'senha' => $request->senha,
-
-        ]);
-        return response()->json([
-            "sucess" => true,
-            "message" => "Registro de administrador bem-sucedido",
-            "data" => $administrador
-        ]);
     }
     public function administradorCpf(Request $request)
     {
@@ -116,12 +110,13 @@ class AdministradorController extends Controller
             'data' => $administrador
         ]);
     }
-    public function administradorRestaurar(Request $request){
+    public function administradorRestaurar(Request $request)
+    {
         $administrador = Administrador::where('email', 'like', $request->email)->first();
         if ($administrador) {
             $novaSenha = $administrador->cpf;
             $administrador->update([
-                'senha' => Hash::make($novaSenha),
+                'password' => Hash::make($novaSenha),
                 'updated_at' => now()
             ]);
             return response()->json([
@@ -154,8 +149,8 @@ class AdministradorController extends Controller
         if (isset($request->email)) {
             $administrador->email = $request->email;
         }
-        if (isset($request->senha)) {
-            $administrador->senha = $request->senha;
+        if (isset($request->password)) {
+            $administrador->password = $request->password;
         }
         $administrador->update();
         return response()->json([
