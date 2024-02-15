@@ -6,6 +6,8 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\ProfissionalController;
 use App\Http\Controllers\ServicoController;
+use App\Http\Middleware\IsAutenticated;
+use App\Http\Middleware\SetSanctumGuard;
 use App\Models\Administrador;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -166,7 +168,11 @@ Route::post('professional/schedule/find/time/professional', [AgendaController::c
 
 //------------------------------------------- ADMNISTRADOR -------------------------------------------//
 
-Route::post('adm', [AdministradorController::class, 'administrador']);
+Route::post('adm/create',[AdministradorController::class, 'administrador']);
+
+Route::post('adm/login',[AdministradorController::class, 'adminstradorlogin']);
+
+Route::get('adm/check',[AdministradorController::class, 'administradorVerificarLogado'])->middleware(['auth:sanctum', SetSanctumGuard::class, IsAutenticated::class]);
 
 Route::post('adm/cpf', [AdministradorController::class, 'administradorCpf']);
 

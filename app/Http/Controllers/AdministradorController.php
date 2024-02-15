@@ -6,11 +6,65 @@ use App\Http\Requests\AdministradorFormRequest;
 use App\Http\Requests\UpdateAdministradorFormRequest;
 use App\Models\Administrador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdministradorController extends Controller
 {
-    public function administrador(AdministradorFormRequest $request){
+    public function administrador(Request $request){
+        try{
+         $data = $request-> all();
+         
+         $data['password'] = Hash::make($request->password);
+
+         $response = Administrador::create($data)->createToken($request->server('HTTP_USER_AGENT'))->plainTextToken;
+
+         return response()->json([
+            'status' => 'sucess',
+            'message' => "Admin cadastrado com sucesso",
+            'token' => $response
+         ],200);
+        
+        } catch(\Throwable $th){
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ],500);
+        }
+    }
+    public function administradorLogin(Request $request){
+        {
+            try {
+                if (Auth::guard('administradors')->attempt([
+                    'email' => $request->email,
+                    'password' => $request->password,
+                ])) {
+                    /** @var UserContract $user */
+                    $user = Auth::guard('administradors')->user();
+                    $token = $user->createToken($request->server('HTTP_USER_AGENT'), ['administradors'])->plainTextToken;
+                    return response()->json([
+                        'status' => true,
+                        'message' => "Login efetuado com sucesso",
+                        'token' => $token
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Credenciais incorretas'
+                    ], 200);
+                }
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $th->getMessage()
+                ], 500);
+            }
+        }
+    }
+    public function verificarAdminstradorLogado(){
+        return Auth::user();
+     }
+    public function admin(AdministradorFormRequest $request){
         $administrador = Administrador::create([
             'nome' => $request->nome,
             'cpf' => $request->cpf,
