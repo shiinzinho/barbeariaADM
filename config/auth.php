@@ -28,6 +28,10 @@ return [
         'administradors' => [
             'driver' => 'session',
             'provider' => 'administradors',
+        ],
+        'profissionals' => [
+            'driver' => 'session',
+            'provider' => 'profissionals',
         ]
     ],
 
@@ -51,6 +55,10 @@ return [
         'administradors' => [
             'driver' => 'eloquent',
             'model' => App\Models\Administrador::class
+        ],
+        'profissionals' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Profissional::class
         ]
     ],
 

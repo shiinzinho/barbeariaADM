@@ -9,6 +9,7 @@ use App\Http\Controllers\ServicoController;
 use App\Http\Middleware\IsAutenticated;
 use App\Http\Middleware\SetSanctumGuard;
 use App\Http\Middleware\VerifyAdminGuard;
+use App\Http\Middleware\VerifyProfissionalGuard;
 use App\Models\Administrador;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -61,7 +62,11 @@ Route::post('client/restore', [ClienteController::class, 'clienteRestaurar']);
 
 //Profissional
 
-Route::post('professional', [ProfissionalController::class, 'profissional']);
+Route::post('professional/create',[ProfissionalController::class, 'profissional']);
+
+Route::post('professional/login',[ProfissionalController::class, 'profissionalLogin']);
+
+Route::get('professional/check',[ProfissionalController::class, 'verificarProfissionalLogado'])->middleware(['auth:sanctum', SetSanctumGuard::class, IsAutenticated::class, VerifyProfissionalGuard::class]);
 
 Route::get('professional/find/{id}', [ProfissionalController::class, 'profissionalId']);
 

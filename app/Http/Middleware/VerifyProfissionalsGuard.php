@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Profissional;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
-class SetSanctumGuard
+class VerifyProfissionalGuard
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,12 @@ class SetSanctumGuard
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Str::startsWith($request->getRequestUri(), 'api/adm')){
-            config(['sanctum.guard' => 'administradors']);
-        } elseif(Str::startsWith($request->getRequestUri(), 'api/professional')){
-            config(['sanctum.guard' => 'profissionals']);
+        if(!auth()->user() instanceof Profissional){
+
+            return response([
+                'status' => false,
+                'message' => "Não é uma intancia de Profissional"
+            ],200);
         }
         return $next($request);
     }
