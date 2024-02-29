@@ -24,7 +24,7 @@ class ClienteFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome'=>'required|max:120|min:5',
+            'name'=>'required|max:120|min:5',
             'celular'=>'required|max:11|min:10',
             'email'=>'required|max:120|email:rfc|unique:clientes,email',
             'cpf'=>'required|max:11|min:11|unique:clientes,cpf',
@@ -48,9 +48,9 @@ class ClienteFormRequest extends FormRequest
     }
     public function messages(){
         return [
-            'nome.required' => 'Nome obrigatório',
-            'nome.max' => 'Nome deve conter no máximo 120 caracteres',
-            'nome.min' => 'Nome deve conter no mínimo 5 caracteres',
+            'name.required' => 'Nome obrigatório',
+            'name.max' => 'Nome deve conter no máximo 120 caracteres',
+            'name.min' => 'Nome deve conter no mínimo 5 caracteres',
             'celular.required' => 'Celular obrigatório',
             'celular.max' => 'Celular deve conter no máximo 11 caracteres',
             'celular.min' => 'Celular deve conter no mínimo 10 caracteres',
@@ -73,11 +73,11 @@ class ClienteFormRequest extends FormRequest
             'pais.required' => 'País obrigatório',
             'pais.max' => 'Pais deve conter no máximo 80 caracteres',
             'rua.required' => 'Rua obrigatório',
-            'rua.max' => 'Nome deve conter no máximo 120 caracteres',
+            'rua.max' => 'Rua deve conter no máximo 120 caracteres',
             'numero.required' => 'Número obrigatório',
-            'numero.max' => 'numero deve conter no máximo 10 caracteres',
+            'numero.max' => 'Núumero deve conter no máximo 10 caracteres',
             'bairro.required' => 'Bairro obrigatório',
-            'bairro.max' => 'bairro deve conter no máximo 100 caracteres',
+            'bairro.max' => 'Bairro deve conter no máximo 100 caracteres',
             'cep.required' => 'CEP obrigatório',
             'cep.max' => 'CEP deve conter no máximo 8 caracteres',
             'cep.min' => 'CEP deve conter no mínimo 8 caracteres',

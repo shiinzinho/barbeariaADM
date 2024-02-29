@@ -24,7 +24,7 @@ class UpdateClienteFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome'=>'max:120|min:5',
+            'name'=>'max:120|min:5',
             'celular'=>'max:11|min:10',
             'email'=>'max:120|email:rfc|unique:clientes,email,' . $this -> id,
             'cpf'=>'max:11|min:11|unique:clientes,cpf,' . $this -> id,
@@ -47,8 +47,8 @@ class UpdateClienteFormRequest extends FormRequest
     }
     public function messages(){
         return [
-            'nome.max' => 'Nome deve conter no máximo 120 caracteres',
-            'nome.min' => 'Nome deve conter no mínimo 5 caracteres',
+            'name.max' => 'Nome deve conter no máximo 120 caracteres',
+            'name.min' => 'Nome deve conter no mínimo 5 caracteres',
             'celular.max' => 'Celular deve conter no máximo 11 caracteres',
             'celular.min' => 'Celular deve conter no mínimo 10 caracteres',
             'email.max' => 'E-mail deve conter no máximo 120 caracteres',
@@ -62,9 +62,9 @@ class UpdateClienteFormRequest extends FormRequest
             'estado.max' => 'Estado deve conter no máximo 2 caracteres',
             'estado.min' => 'Estado deve conter no mínimo 2 caracteres',
             'pais.max' => 'Pais deve conter no máximo 80 caracteres',
-            'rua.max' => 'Nome deve conter no máximo 120 caracteres',
-            'numero.max' => 'numero deve conter no máximo 10 caracteres',
-            'bairro.max' => 'bairro deve conter no máximo 100 caracteres',
+            'rua.max' => 'Rua deve conter no máximo 120 caracteres',
+            'numero.max' => 'Número deve conter no máximo 10 caracteres',
+            'bairro.max' => 'Bairro deve conter no máximo 100 caracteres',
             'cep.max' => 'CEP deve conter no máximo 8 caracteres',
             'cep.min' => 'CEP deve conter no mínimo 8 caracteres',
             'complemento.max' => 'Complemento deve conter no máximo 150 caracteres',

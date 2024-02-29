@@ -12,7 +12,7 @@ class ClienteController extends Controller
 {
     public function cliente(ClienteFormRequest $request){
         $cliente = Cliente::create([
-            'nome' => $request->nome,
+            'name' => $request->name,
             'celular' => $request->celular,
             'email' => $request->email,
             'cpf' => $request->cpf,
@@ -48,7 +48,7 @@ class ClienteController extends Controller
         ]);
     }
     public function clienteNome(Request $request){
-        $cliente = Cliente::where('nome', 'like', '%' . $request->nome . '%')->get();
+        $cliente = Cliente::where('name', 'like', '%' . $request->name . '%')->get();
         if(count($cliente) > 0){
             return response()->json([
                 'status' => true,
@@ -149,8 +149,8 @@ class ClienteController extends Controller
                     'message' => "Cliente não encontrado"
                 ]);
             }
-            if(isset($request->nome)){
-                $cliente->nome = $request->nome;
+            if(isset($request->name)){
+                $cliente->name = $request->name;
             }
             if(isset($request->celular)){
                 $cliente->celular = $request->celular;
